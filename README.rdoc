@@ -1,0 +1,6 @@
+= glitter
+
+Describe your project here
+
+:include:glitter.rdoc
+

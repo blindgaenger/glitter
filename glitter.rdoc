@@ -1,0 +1,5 @@
+= glitter
+
+Generate this with
+    glitter rdoc
+After you have described your command line interface
