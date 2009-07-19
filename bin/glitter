@@ -8,21 +8,18 @@ include GLI
 
 Dir['lib/commands/*.rb'].each {|file| load file}
 
-pre do |global,command,options,args|
-  # Pre logic here
-  # Return true to proceed; false to abourt and not call the
-  # chosen command
+on_error do |ex|
+  puts "ERR #{ex.message}"
   true
 end
 
-post do |global,command,options,args|
-  # Post logic here
+pre do |global_options,command,options,args|
+  puts "PRE #{command.to_s}"
+  true
 end
 
-on_error do |exception|
-  # Error logic here
-  # return false to skip default error handling
-  true
+post do |global_options,command,options,args|
+  puts "POST #{command.to_s}"
 end
 
 GLI.run(ARGV)
