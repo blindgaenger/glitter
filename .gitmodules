@@ -1,0 +1,7 @@
+[submodule "vendor/twitter"]
+	path = vendor/twitter
+	url = git://github.com/paulsingh/twitter.git
+[submodule "vendor/gli"]
+	path = vendor/gli
+	url = git://github.com/blindgaenger/gli.git
+
