@@ -24,8 +24,10 @@ Dir['lib/commands/*.rb'].each {|file| load file}
 
 pre do |global_options,command,options,args|
   @config = TwitterConfig.new('config.yml')
+
   if command.nil?
     commands[:help].execute(global_options,options,args)
+    false
   elsif command && command.name == :help
     true # always help
   elsif @config.atoken.nil?
