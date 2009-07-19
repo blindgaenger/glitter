@@ -1,8 +1,9 @@
 #!/usr/bin/ruby
 $: << File.expand_path(File.dirname(__FILE__) + '/../lib')
 require 'rubygems'
-require 'gli'
 
+$: << File.expand_path(File.dirname(__FILE__) + '/../../gli/lib') 
+require 'gli'
 include GLI
 
 desc 'Describe some switch here'
