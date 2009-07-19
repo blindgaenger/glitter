@@ -1,25 +1,57 @@
 #!/usr/bin/ruby
-$: << File.expand_path(File.dirname(__FILE__) + '/../lib')
-require 'rubygems'
 
-$: << File.expand_path(File.dirname(__FILE__) + '/../../gli/lib') 
-require 'gli'
+require 'rubygems'
+require 'ostruct'
+require 'yaml'
+require 'highline/import'
+
+# vendor gems
+Dir["vendor/**"].map do |dir|
+  load_dir = File.directory?(lib = "#{dir}/lib") ? lib : dir
+  $LOAD_PATH << load_dir
+  load_file = "#{load_dir}/#{File.basename(dir)}.rb"
+  load load_file if File.exist? load_file
+end
+
+# own libs
+$LOAD_PATH << File.expand_path(File.dirname(__FILE__) + '/../lib')
+require 'twitter_app'
+
+
 include GLI
 
 Dir['lib/commands/*.rb'].each {|file| load file}
 
-on_error do |ex|
-  puts "ERR #{ex.message}"
-  true
-end
-
 pre do |global_options,command,options,args|
-  puts "PRE #{command.to_s}"
-  true
+  @config = TwitterConfig.new('config.yml')
+  if command.nil?
+    commands[:help].execute(global_options,options,args)
+  elsif command && command.name == :help
+    true # always help
+  elsif @config.atoken.nil?
+    if command && command.name == :register
+      true
+    else
+      puts "Sorry, but you need to register first. Try this:"
+      puts "\n"
+      puts "    $ glitter register"
+      puts "\n"
+      false
+    end
+  else
+    @twitter = TwitterApp.new(@config)
+    true # already registered
+  end
 end
 
 post do |global_options,command,options,args|
-  puts "POST #{command.to_s}"
+end
+
+on_error do |ex|
+  warn ex.message
+  warn ex.backtrace
+  true
 end
 
 GLI.run(ARGV)
+
