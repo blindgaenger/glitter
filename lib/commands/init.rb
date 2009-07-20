@@ -1,10 +1,10 @@
 desc "Registers glitter with your twitter account"
-command [:register] do |c|
+command [:init] do |c|
 
   c.action do |global, options, args|
-    #TODO: check for --force option
+    #TODO: check for global --force option, not a git parameter but useful
     if @config.atoken
-      puts "You already registered glitter. Find out what else you can do:"
+      puts "You already initialized glitter. Find out what else you can do:"
       puts "\n"
       puts "    $ glitter help"
       puts "\n"
@@ -20,7 +20,7 @@ command [:register] do |c|
         end
         
         ask "And now enter the PIN twitter gave to you:" do |q|
-          # need to use set readline, otherwise "The input stream is exhausted."
+          # need to use readline, otherwise "The input stream is exhausted."
           q.readline = true
         end
       }

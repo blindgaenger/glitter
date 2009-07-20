@@ -35,18 +35,18 @@ pre do |global_options,command,options,args|
   elsif command && command.name == :help
     true # always help
   elsif @config.atoken.nil?
-    if command && command.name == :register
+    if command && command.name == :init
       true
     else
-      puts "Sorry, but you need to register first. Try this:"
+      puts "Sorry, but you need to initialize first. Try this:"
       puts "\n"
-      puts "    $ glitter register"
+      puts "    $ glitter init"
       puts "\n"
       false
     end
   else
     @twitter = TwitterApp.new(@config)
-    true # already registered
+    true # already init
   end
 end
 
