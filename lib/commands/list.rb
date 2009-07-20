@@ -3,7 +3,7 @@ command :list do |c|
 
   c.desc "Specifies the number of statuses to retrieve. May not be greater than 200."
   c.default_value 20
-  c.flag :count
+  c.flag :"max-count"
 
   c.action do |globals, options, args|
     def bold(text)
@@ -17,14 +17,19 @@ command :list do |c|
     def indent(text, length=4)
       ' '*length + wrap(text, length, 80)
     end
-  
-    statuses = @twitter.friends_timeline({:count => options[:count]})
+
+    statuses = @twitter.friends_timeline({:count => options['max-count']})
     statuses.each {|status|
-      say bold(status.user.screen_name) + ' ' + color(status.created_at, :yellow)
-      puts
-      say indent(status.text)
-      puts
+      say <<-EOL
+#{color status.id, :yellow}
+Author: #{status.user.screen_name} <#{status.user.name}>
+Date:   #{status.created_at}
+
+#{indent(status.text)}
+
+    EOL
     }
+
   end
 end
 
