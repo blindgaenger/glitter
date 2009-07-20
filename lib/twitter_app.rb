@@ -1,5 +1,5 @@
 class TwitterConfig < OpenStruct
-  def initialize()
+  def initialize(config_file)
     @config_file = File.expand_path(config_file)
     filename = File.exist?(@config_file) ? @config_file : 'default.yml'
     super(YAML.load(File.read(filename)))
