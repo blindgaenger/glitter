@@ -4,6 +4,7 @@ require 'rubygems'
 require 'ostruct'
 require 'yaml'
 require 'highline/import'
+require 'ftools'
 
 # vendor gems
 Dir["vendor/**"].map do |dir|

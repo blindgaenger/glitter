@@ -1,12 +1,16 @@
 class TwitterConfig < OpenStruct
+  CONFIG_FILE = "~/.twitter/glitter.yml"
+
   def initialize(config_file)
-    @config_file = File.expand_path config_file
-    if File.exist? @config_file
-      super(YAML.load(File.read(@config_file)))
-    end
+    @config_file = File.expand_path(CONFIG_FILE)
+    filename = File.exist?(@config_file) ? @config_file : 'default.yml'
+    super(YAML.load(File.read(filename)))
   end
   
   def update
+    unless File.exist? @config_file
+      File.makedirs File.dirname(@config_file)
+    end
     File.open(@config_file, 'w') do |file|
       file.puts YAML.dump(marshal_dump)
     end
