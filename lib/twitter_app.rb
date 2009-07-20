@@ -1,13 +1,11 @@
 class TwitterConfig < OpenStruct
-  CONFIG_FILE = "~/.twitter/glitter.yml"
-
-  def initialize(config_file)
-    @config_file = File.expand_path(CONFIG_FILE)
+  def initialize()
+    @config_file = File.expand_path(config_file)
     filename = File.exist?(@config_file) ? @config_file : 'default.yml'
     super(YAML.load(File.read(filename)))
   end
   
-  def update
+  def store
     unless File.exist? @config_file
       File.makedirs File.dirname(@config_file)
     end
@@ -33,13 +31,12 @@ class TwitterApp < Twitter::Base
       end
       counter += 1
 
+      # now that the request_token is authorized we can get an access token
       begin
-        # now that the request_token is authorized we can get an access token
         access_token = request_token.get_access_token(:oauth_verifier => oauth_verifier)
         config.atoken = access_token.token
         config.asecret = access_token.secret
-        config.update
-        
+        config.store
         return true # user authorized and it works
       rescue OAuth::Unauthorized => ex
         # ignore and try again

@@ -18,13 +18,16 @@ end
 $LOAD_PATH << File.expand_path(File.dirname(__FILE__) + '/../lib')
 require 'twitter_app'
 
-
 include GLI
+
+
+CONFIG_FILE = "~/.twitter/glitter.yml"
+
 
 Dir['lib/commands/*.rb'].each {|file| load file}
 
 pre do |global_options,command,options,args|
-  @config = TwitterConfig.new('config.yml')
+  @config = TwitterConfig.new(CONFIG_FILE)
 
   if command.nil?
     commands[:help].execute(global_options,options,args)
