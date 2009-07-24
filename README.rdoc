@@ -1,6 +1,45 @@
 = glitter
 
-Describe your project here
+The idea is to think about {Twitter}[http://www.twitter.com/] as a 
+{Git}[http://git-scm.com/] repository. So you can commit your status and view 
+your friends commits in the log. Just for fun to see how far this can go!
 
-:include:glitter.rdoc
+For more information you should have a look at the 
+{glitter project page}[http://blindgaenger.github.com/glitter].
+
+== Usage
+
+But basically you use it just like Git … but for Twitter :)
+
+    $ glitter init
+    (Instructions to register glitter with your twitter account)
+    …
+
+    $ glitter log -n 3
+    commit 2799873378
+    Author: codinghorror <Jeff Atwood>
+    Date:   Thu Jul 23 15:29:12 +0000 2009
+
+        reminder: anyone who would like to beta test http://superuser.com , password
+        is here http://is.gd/1J0yR
+
+    commit 2799553049
+    Author: TechCrunch <Michael Arrington>
+    Date:   Thu Jul 23 15:09:52 +0000 2009
+
+        The Song of the PowerSquid: The Inside Story of the Life of an Invention 
+        http://tcrn.ch/NuB by Guest Author
+
+    commit 2799436673
+    Author: olabini <Ola Bini>
+    Date:   Thu Jul 23 15:02:53 +0000 2009
+
+        SUCCESS. Switching from Jacc to Jay removed another bottleneck. Yecht is now
+        about 5% faster than Syck and JvYAMLb.
+
+    $ glitter commit -m "command line fun with #glitter on #twitter"
+    Created commit 2799823473: command line fun with #glitter on #twitter
+     1 files changed, 1 insertions(+), 0 deletions(-)
+
+Have fun!
 
