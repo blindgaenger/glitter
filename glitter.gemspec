@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{glitter}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["blindgaenger"]
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
      "glitter.rdoc"
   ]
   s.files = [
-    ".gitmodules",
+    "LICENSE",
      "README.rdoc",
      "Rakefile",
      "VERSION",
@@ -27,7 +27,10 @@ Gem::Specification.new do |s|
      "lib/commands/commit.rb",
      "lib/commands/init.rb",
      "lib/commands/log.rb",
-     "lib/twitter_app.rb"
+     "lib/glitter.rb",
+     "lib/twitter_app.rb",
+     "test/glitter_test.rb",
+     "test/test_helper.rb"
   ]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/blindgaenger/glitter}
@@ -45,8 +48,14 @@ Gem::Specification.new do |s|
     s.specification_version = 2
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<gli>, [">= 0.2.3"])
+      s.add_runtime_dependency(%q<twitter>, [">= 0.6.13"])
     else
+      s.add_dependency(%q<gli>, [">= 0.2.3"])
+      s.add_dependency(%q<twitter>, [">= 0.6.13"])
     end
   else
+    s.add_dependency(%q<gli>, [">= 0.2.3"])
+    s.add_dependency(%q<twitter>, [">= 0.6.13"])
   end
 end
