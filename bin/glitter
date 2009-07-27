@@ -1,28 +1,18 @@
 #!/usr/bin/ruby
+$LOAD_PATH << File.expand_path(File.dirname(__FILE__) + '/../lib')
 
 require 'rubygems'
 require 'ostruct'
 require 'yaml'
 require 'highline/import'
 require 'ftools'
-
-# vendor gems
-Dir["vendor/**"].map do |dir|
-  load_dir = File.directory?(lib = "#{dir}/lib") ? lib : dir
-  $LOAD_PATH << load_dir
-  load_file = "#{load_dir}/#{File.basename(dir)}.rb"
-  load load_file if File.exist? load_file
-end
-
-# own libs
-$LOAD_PATH << File.expand_path(File.dirname(__FILE__) + '/../lib')
+require 'gli'
+require 'twitter'
 require 'twitter_app'
 
 include GLI
 
-
 CONFIG_FILE = "~/.twitter/glitter.yml"
-
 
 Dir['lib/commands/*.rb'].each {|file| load file}
 

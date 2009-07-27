@@ -4,6 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
+    # see http://www.rubygems.org/read/chapter/20
     gem.name = "glitter"
     gem.summary = %Q{TODO}
     gem.email = "blindgaenger@gmail.com"
@@ -13,7 +14,8 @@ begin
     gem.bindir = "bin"
     gem.executables = ["glitter"]
     gem.extra_rdoc_files << 'glitter.rdoc'
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.add_dependency('gli', '>= 0.2.3')
+    gem.add_dependency('twitter', '>= 0.6.13')
   end
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
@@ -38,7 +40,6 @@ rescue LoadError
     abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
   end
 end
-
 
 task :default => :test
 
