@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{glitter}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["blindgaenger"]
-  s.date = %q{2009-07-27}
+  s.date = %q{2009-07-28}
   s.default_executable = %q{glitter}
   s.email = %q{blindgaenger@gmail.com}
   s.executables = ["glitter"]
@@ -16,7 +16,8 @@ Gem::Specification.new do |s|
      "glitter.rdoc"
   ]
   s.files = [
-    "LICENSE",
+    ".gitignore",
+     "LICENSE",
      "README.rdoc",
      "Rakefile",
      "VERSION",
@@ -28,6 +29,7 @@ Gem::Specification.new do |s|
      "lib/commands/init.rb",
      "lib/commands/log.rb",
      "lib/glitter.rb",
+     "lib/template.rb",
      "lib/twitter_app.rb",
      "test/glitter_test.rb",
      "test/test_helper.rb"
