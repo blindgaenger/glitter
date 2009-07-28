@@ -27,7 +27,7 @@ Date:   #{status.created_at}
 
 #{indent(status.text)}
 
-    EOL
+EOL
     }
 
   end

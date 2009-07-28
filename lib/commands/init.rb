@@ -1,7 +1,7 @@
 desc "Registers glitter with your twitter account"
 command [:init] do |c|
 
-  c.action do |global, options, args|
+  c.action do |globals, options, args|
     #TODO: check for global --force option, not a git parameter but useful
     if @config.atoken
       puts "You already initialized glitter. Find out what else you can do:"

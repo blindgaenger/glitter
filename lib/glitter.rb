@@ -8,11 +8,18 @@ Dir['lib/commands/*.rb'].each {|file| load file}
 
 CONFIG_FILE = "~/.twitter/glitter.yml"
 
-pre do |global_options,command,options,args|
+desc 'Show version'
+switch :version
+
+pre do |globals,command,options,args|
   @config = TwitterConfig.new(CONFIG_FILE)
 
   if command.nil?
-    commands[:help].execute(global_options,options,args)
+    if globals.version
+      puts "glitter version #{File.read 'VERSION'}"
+    else
+      commands[:help].execute(globals,options,args)
+    end
     false
   elsif command && command.name == :help
     true # always help
@@ -32,7 +39,7 @@ pre do |global_options,command,options,args|
   end
 end
 
-post do |global_options,command,options,args|
+post do |globals,command,options,args|
 end
 
 on_error do |ex|
