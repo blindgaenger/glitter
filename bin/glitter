@@ -1,53 +1,5 @@
-#!/usr/bin/ruby
-$LOAD_PATH << File.expand_path(File.dirname(__FILE__) + '/../lib')
-
+#!/usr/bin/env ruby
 require 'rubygems'
-require 'ostruct'
-require 'yaml'
-require 'highline/import'
-require 'ftools'
-require 'gli'
-require 'twitter'
-require 'twitter_app'
-
-include GLI
-
-CONFIG_FILE = "~/.twitter/glitter.yml"
-
-Dir['lib/commands/*.rb'].each {|file| load file}
-
-pre do |global_options,command,options,args|
-  @config = TwitterConfig.new(CONFIG_FILE)
-
-  if command.nil?
-    commands[:help].execute(global_options,options,args)
-    false
-  elsif command && command.name == :help
-    true # always help
-  elsif @config.atoken.nil?
-    if command && command.name == :init
-      true
-    else
-      puts "Sorry, but you need to initialize first. Try this:"
-      puts "\n"
-      puts "    $ glitter init"
-      puts "\n"
-      false
-    end
-  else
-    @twitter = TwitterApp.new(@config)
-    true # already init
-  end
-end
-
-post do |global_options,command,options,args|
-end
-
-on_error do |ex|
-  warn ex.message
-  warn ex.backtrace
-  true
-end
-
+require 'glitter'
 GLI.run(ARGV)
-
+ 
