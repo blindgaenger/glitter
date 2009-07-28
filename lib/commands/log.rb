@@ -5,22 +5,15 @@ command :log do |c|
   c.default_value 20
   c.flag :n, :'max-count'
 
-  c.action do |globals, options, args|
-    def bold(text)
-      "<%= color('#{text}', BOLD) %>"
-    end
-
-    def color(text, color)
-      "<%= color('#{text}', :#{color.to_s}) %>"
-    end
+  c.desc "Show colored diff."
+  c.switch :color
   
-    def indent(text, length=4)
-      ' '*length + wrap(text, length, 80)
-    end
+  c.desc "Turn off colored diff."
+  c.switch :"no-color"
 
-    statuses = @twitter.friends_timeline({:count => options.n})
-    statuses.each {|status|
-      say <<-EOL
+  c.action do |globals, options, args|
+    template = Template.new(options) do |status|
+    <<-EOL
 #{color "commit #{status.id}", :yellow}
 Author: #{status.user.screen_name} <#{status.user.name}>
 Date:   #{status.created_at}
@@ -28,8 +21,10 @@ Date:   #{status.created_at}
 #{indent(status.text)}
 
 EOL
-    }
+    end
 
+    statuses = @twitter.friends_timeline({:count => options.n})
+    template.print_each statuses
   end
 end
 

@@ -3,12 +3,13 @@ $:.unshift File.dirname(__FILE__)
 RUBY_PLATFORM = PLATFORM unless defined? RUBY_PLATFORM # Ruby 1.8 compatibility
  
 require 'twitter_app'
+load 'lib/template.rb'
 include GLI
 Dir['lib/commands/*.rb'].each {|file| load file}
 
 CONFIG_FILE = "~/.twitter/glitter.yml"
 
-desc 'Show version'
+desc 'Show the current version'
 switch :version
 
 pre do |globals,command,options,args|
