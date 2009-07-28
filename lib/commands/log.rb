@@ -18,7 +18,7 @@ command :log do |c|
       ' '*length + wrap(text, length, 80)
     end
 
-    statuses = @twitter.friends_timeline({:count => options['max-count']})
+    statuses = @twitter.friends_timeline({:count => options.n})
     statuses.each {|status|
       say <<-EOL
 #{color "commit #{status.id}", :yellow}
